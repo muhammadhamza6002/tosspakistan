@@ -5,6 +5,7 @@ import { CartProvider } from "@/components/cart-provider";
 import { CartDrawer } from "@/components/cart-drawer";
 import { StickyOrderButton } from "@/components/sticky-order-button";
 import { Nav } from "@/components/nav";
+import { StarsBackground } from "@/components/stars-background";
 
 const display = Bagel_Fat_One({
   variable: "--font-display",
@@ -47,9 +48,10 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} ${hand.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-ink">
+        <StarsBackground />
         <CartProvider>
           <Nav />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 relative z-10">{children}</main>
           <CartDrawer />
           <StickyOrderButton />
         </CartProvider>

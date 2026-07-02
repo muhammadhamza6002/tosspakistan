@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SHOP } from "@/data/menu";
+import { Mascot } from "./mascot";
 
 export function Hero() {
   return (
@@ -14,17 +15,28 @@ export function Hero() {
         {SHOP.rating}★ · {SHOP.reviewCount} reviews
       </div>
 
+      {/* Mascot with spinning pizza — right side, sized to not overlap wordmark */}
+      <motion.div
+        initial={{ opacity: 0, y: 30, rotate: -5 }}
+        animate={{ opacity: 1, y: 0, rotate: 0 }}
+        transition={{ delay: 0.4, duration: 0.7 }}
+        className="hidden md:block absolute right-3 lg:right-8 top-28 lg:top-32 w-32 lg:w-44 z-20"
+      >
+        <Mascot className="w-full" />
+      </motion.div>
+
+      {/* Mascot on mobile — smaller, bottom-left */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="md:hidden absolute bottom-28 left-3 w-24 z-20"
+      >
+        <Mascot className="w-full" />
+      </motion.div>
+
       {/* Massive wordmark */}
       <div className="flex-1 flex flex-col items-center justify-center relative pb-20 md:pb-24">
-        {/* Sticker note */}
-        <motion.div
-          initial={{ rotate: -8, opacity: 0, y: -20 }}
-          animate={{ rotate: -6, opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, type: "spring" }}
-          className="hidden sm:block absolute top-6 right-8 md:right-24 bg-paper border-2 border-ink px-4 py-2 shadow-[4px_4px_0_0_var(--ink)]"
-        >
-          <p className="font-hand text-2xl leading-none">the real deal ↙</p>
-        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
