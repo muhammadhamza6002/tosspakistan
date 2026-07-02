@@ -33,11 +33,10 @@ export function Story() {
           </div>
         </div>
 
-        <div className="relative min-h-[400px] md:min-h-[520px]">
+        <div className="relative min-h-[420px] md:min-h-[540px]">
           {[
-            { src: "/photos/pizza-1.jpg", rot: -6, top: "0%", left: "5%", z: 10 },
-            { src: "/photos/pizza-2.jpg", rot: 5, top: "20%", left: "40%", z: 20 },
-            { src: "/photos/pizza-3.jpg", rot: -3, top: "45%", left: "15%", z: 30 },
+            { src: "/photos/margherita.jpg", caption: "margherita, hot", rot: -6, top: "0%", left: "3%", z: 10 },
+            { src: "/photos/diavola.jpg", caption: "diavola, spicy", rot: 5, top: "24%", left: "42%", z: 20 },
           ].map((p, i) => (
             <motion.div
               key={i}
@@ -45,13 +44,21 @@ export function Story() {
               whileInView={{ opacity: 1, y: 0, rotate: p.rot }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="absolute w-56 md:w-64 bg-paper border-2 border-ink p-3 shadow-[6px_6px_0_0_var(--ink)]"
+              className="absolute w-56 md:w-72 bg-paper border-2 border-ink p-3 shadow-[6px_6px_0_0_var(--ink)]"
               style={{ top: p.top, left: p.left, zIndex: p.z }}
             >
-              <div className="aspect-square bg-paper-warm border border-ink/20 flex items-center justify-center text-ink-soft">
-                <span className="font-hand text-3xl">pizza {i + 1}</span>
+              <div className="aspect-square overflow-hidden border border-ink/20 bg-paper-warm">
+                <img
+                  src={p.src}
+                  alt={p.caption}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+              <p className="mt-2 font-hand text-2xl leading-none">
+                {p.caption}
+              </p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
                 ↳ from the oven, F-11
               </p>
             </motion.div>
