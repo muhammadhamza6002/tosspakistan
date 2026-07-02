@@ -11,8 +11,8 @@ export type CheckoutInfo = {
 
 export function buildWhatsAppMessage(lines: CartLine[], info: CheckoutInfo, subtotal: number) {
   const lineItems = lines
-    .map((l, i) => {
-      const base = `${i + 1}. ${l.qty} × ${l.name} — Rs ${l.price * l.qty}`;
+    .map((l) => {
+      const base = `• ${l.qty} × ${l.name} — Rs ${l.price * l.qty}`;
       const addOns = l.addOns.length
         ? "\n   + " + l.addOns.map((a) => `${a.name} (Rs ${a.price})`).join(", ")
         : "";
