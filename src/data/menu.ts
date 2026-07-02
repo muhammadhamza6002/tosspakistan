@@ -121,11 +121,11 @@ export const addOns: AddOn[] = [
 ];
 
 export const TAG_META: Record<Tag, { label: string; color: string }> = {
-  spicy: { label: "🌶 spicy", color: "bg-sauce text-paper" },
-  beef: { label: "🐄 strong beef", color: "bg-ink text-paper" },
-  veg: { label: "🌱 no meat", color: "bg-basil text-paper" },
-  chef: { label: "⭐ chef's special", color: "bg-ink text-paper" },
-  new: { label: "✦ new", color: "bg-paper text-ink border border-ink" },
+  spicy: { label: "spicy", color: "bg-sauce text-paper" },
+  beef: { label: "strong beef", color: "bg-ink text-paper" },
+  veg: { label: "no meat", color: "bg-basil text-paper" },
+  chef: { label: "chef's special", color: "bg-ink text-paper" },
+  new: { label: "new", color: "bg-paper text-ink border border-ink" },
 };
 
 export const SHOP = {
@@ -133,7 +133,7 @@ export const SHOP = {
   tagline: "No fluff, no fancy. Just real pizzas done right.",
   address: "Shop # 1, Ali Market, Plot 2A Street 73, F-11/1, Islamabad, 46000",
   phone: "03268677867",
-  phoneFormatted: "0326-TOSSTOS (867-7867)",
+  phoneFormatted: "0326-8677867",
   whatsapp: "923268677867", // international format, no + or leading 0
   hours: "Tue–Sun · 5pm – 1am (dine-in closes 11pm) · Mon closed",
   instagram: "https://www.instagram.com/tosspakistan/",

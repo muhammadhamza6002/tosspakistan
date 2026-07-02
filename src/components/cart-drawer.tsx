@@ -22,7 +22,6 @@ export function CartDrawer() {
     if (!canCheckout) return;
     const url = buildWhatsAppMessage(lines, info, subtotal);
     window.open(url, "_blank");
-    // Keep the cart in case WhatsApp fails to open; user can retry.
   }
 
   return (
@@ -43,11 +42,14 @@ export function CartDrawer() {
             transition={{ type: "spring", damping: 28, stiffness: 240 }}
             className="fixed right-0 top-0 z-50 h-full w-full max-w-md bg-paper border-l-2 border-ink flex flex-col"
           >
-            <header className="flex items-center justify-between p-6 border-b-2 border-ink">
+            {/* Sticky header */}
+            <header className="flex-shrink-0 flex items-center justify-between px-5 py-4 border-b-2 border-ink bg-paper">
               <div>
-                <h2 className="font-display text-3xl leading-none">Your order</h2>
-                <p className="font-mono text-xs uppercase mt-1 text-ink-soft">
-                  {lines.length === 0 ? "Empty — pick a pizza" : `${lines.length} item${lines.length > 1 ? "s" : ""}`}
+                <h2 className="font-display text-2xl leading-none">Your order</h2>
+                <p className="font-mono text-[10px] uppercase mt-1 text-ink-soft tracking-widest">
+                  {lines.length === 0
+                    ? "Empty — pick a pizza"
+                    : `${lines.length} item${lines.length > 1 ? "s" : ""} · Rs ${subtotal}`}
                 </p>
               </div>
               <button
@@ -59,117 +61,143 @@ export function CartDrawer() {
               </button>
             </header>
 
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            {/* One scrollable region — items + form together */}
+            <div className="flex-1 overflow-y-auto">
               {lines.length === 0 ? (
-                <p className="font-hand text-2xl text-ink-soft text-center mt-16">
+                <p className="font-hand text-2xl text-ink-soft text-center mt-24 px-6">
                   nothing here yet<br />← go add a pizza
                 </p>
               ) : (
-                lines.map((l, i) => {
-                  const lineTotal = l.qty * (l.price + l.addOns.reduce((a, o) => a + o.price, 0));
-                  return (
-                    <div key={i} className="border-2 border-ink bg-paper-warm p-4">
-                      <div className="flex justify-between items-start gap-3">
-                        <div className="flex-1">
-                          <p className="font-display text-xl leading-tight">{l.name}</p>
-                          {l.addOns.length > 0 && (
-                            <p className="font-mono text-xs mt-1 text-ink-soft">
-                              + {l.addOns.map((a) => a.name).join(", ")}
-                            </p>
-                          )}
-                          {l.notes && <p className="font-hand text-lg mt-1">"{l.notes}"</p>}
-                        </div>
-                        <p className="font-mono text-sm">Rs {lineTotal}</p>
-                      </div>
-                      <div className="flex items-center justify-between mt-3">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => setQty(i, l.qty - 1)}
-                            className="w-8 h-8 border-2 border-ink font-mono hover:bg-ink hover:text-paper"
-                          >
-                            −
-                          </button>
-                          <span className="font-mono w-6 text-center">{l.qty}</span>
-                          <button
-                            onClick={() => setQty(i, l.qty + 1)}
-                            className="w-8 h-8 border-2 border-ink font-mono hover:bg-ink hover:text-paper"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <button
-                          onClick={() => remove(i)}
-                          className="font-mono text-xs uppercase underline underline-offset-4 hover:text-sauce"
+                <>
+                  <div className="px-5 py-4 space-y-3">
+                    {lines.map((l, i) => {
+                      const lineTotal =
+                        l.qty * (l.price + l.addOns.reduce((a, o) => a + o.price, 0));
+                      return (
+                        <div
+                          key={i}
+                          className="border-2 border-ink bg-paper-warm p-3"
                         >
-                          remove
-                        </button>
-                      </div>
+                          <div className="flex justify-between items-start gap-3">
+                            <div className="flex-1 min-w-0">
+                              <p className="font-display text-lg leading-tight truncate">
+                                {l.name}
+                              </p>
+                              {l.addOns.length > 0 && (
+                                <p className="font-mono text-[10px] mt-1 text-ink-soft leading-snug">
+                                  + {l.addOns.map((a) => a.name).join(", ")}
+                                </p>
+                              )}
+                              {l.notes && (
+                                <p className="font-hand text-base mt-1 leading-snug">
+                                  &ldquo;{l.notes}&rdquo;
+                                </p>
+                              )}
+                            </div>
+                            <p className="font-mono text-sm flex-shrink-0">Rs {lineTotal}</p>
+                          </div>
+                          <div className="flex items-center justify-between mt-2">
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                onClick={() => setQty(i, l.qty - 1)}
+                                className="w-7 h-7 border-2 border-ink font-mono text-sm hover:bg-ink hover:text-paper"
+                              >
+                                −
+                              </button>
+                              <span className="font-mono w-6 text-center text-sm">{l.qty}</span>
+                              <button
+                                onClick={() => setQty(i, l.qty + 1)}
+                                className="w-7 h-7 border-2 border-ink font-mono text-sm hover:bg-ink hover:text-paper"
+                              >
+                                +
+                              </button>
+                            </div>
+                            <button
+                              onClick={() => remove(i)}
+                              className="font-mono text-[10px] uppercase underline underline-offset-4 hover:text-sauce tracking-widest"
+                            >
+                              remove
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Form — inline in the scroll, tight spacing */}
+                  <div className="border-t-2 border-ink px-5 py-4 space-y-3 bg-paper">
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+                      ✦ your details
+                    </p>
+                    <input
+                      placeholder="your name"
+                      value={info.name}
+                      onChange={(e) => setInfo({ ...info, name: e.target.value })}
+                      className="w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60"
+                    />
+                    <input
+                      placeholder="phone number"
+                      value={info.phone}
+                      onChange={(e) => setInfo({ ...info, phone: e.target.value })}
+                      className="w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60"
+                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <select
+                        value={info.orderType}
+                        onChange={(e) =>
+                          setInfo({
+                            ...info,
+                            orderType: e.target.value as "takeaway" | "dine-in",
+                          })
+                        }
+                        className="border-2 border-ink bg-paper px-3 py-2 font-mono text-sm"
+                      >
+                        <option value="takeaway">Takeaway</option>
+                        <option value="dine-in">Dine-in</option>
+                      </select>
+                      <input
+                        placeholder="time (e.g. 8pm)"
+                        value={info.time}
+                        onChange={(e) => setInfo({ ...info, time: e.target.value })}
+                        className="border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60"
+                      />
                     </div>
-                  );
-                })
+                    <textarea
+                      placeholder="notes for the kitchen (optional)"
+                      value={info.notes}
+                      onChange={(e) => setInfo({ ...info, notes: e.target.value })}
+                      rows={2}
+                      className="w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60 resize-none"
+                    />
+                  </div>
+                </>
               )}
             </div>
 
+            {/* Sticky footer with CTA */}
             {lines.length > 0 && (
-              <div className="border-t-2 border-ink p-6 space-y-4 bg-paper">
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    placeholder="your name"
-                    value={info.name}
-                    onChange={(e) => setInfo({ ...info, name: e.target.value })}
-                    className="col-span-2 border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60"
-                  />
-                  <input
-                    placeholder="phone number"
-                    value={info.phone}
-                    onChange={(e) => setInfo({ ...info, phone: e.target.value })}
-                    className="col-span-2 border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60"
-                  />
-                  <select
-                    value={info.orderType}
-                    onChange={(e) =>
-                      setInfo({ ...info, orderType: e.target.value as "takeaway" | "dine-in" })
-                    }
-                    className="border-2 border-ink bg-paper px-3 py-2 font-mono text-sm"
-                  >
-                    <option value="takeaway">Takeaway</option>
-                    <option value="dine-in">Dine-in</option>
-                  </select>
-                  <input
-                    placeholder="pickup time (e.g. 8pm)"
-                    value={info.time}
-                    onChange={(e) => setInfo({ ...info, time: e.target.value })}
-                    className="border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60"
-                  />
-                  <textarea
-                    placeholder="notes for the kitchen (optional)"
-                    value={info.notes}
-                    onChange={(e) => setInfo({ ...info, notes: e.target.value })}
-                    rows={2}
-                    className="col-span-2 border-2 border-ink bg-paper px-3 py-2 font-mono text-sm placeholder:text-ink-soft/60 resize-none"
-                  />
-                </div>
-
+              <div className="flex-shrink-0 border-t-2 border-ink px-5 py-4 space-y-3 bg-paper">
                 <div className="flex justify-between items-baseline">
-                  <span className="font-mono text-xs uppercase text-ink-soft">Subtotal</span>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+                    Subtotal
+                  </span>
                   <span className="font-display text-2xl">Rs {subtotal}</span>
                 </div>
-
                 <button
                   onClick={handleCheckout}
                   disabled={!canCheckout}
-                  className="w-full bg-sauce text-paper font-display text-2xl py-4 border-2 border-ink hover:bg-ink hover:text-paper transition disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full bg-sauce text-paper font-display text-xl py-3 border-2 border-ink hover:bg-ink hover:text-paper transition disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   Send order on WhatsApp →
                 </button>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <button
                     onClick={clear}
-                    className="font-mono text-xs uppercase underline underline-offset-4 hover:text-sauce"
+                    className="font-mono text-[10px] uppercase underline underline-offset-4 hover:text-sauce tracking-widest"
                   >
                     clear cart
                   </button>
-                  <p className="font-mono text-xs text-ink-soft">
+                  <p className="font-mono text-[10px] text-ink-soft tracking-widest">
                     Cash on pickup · {SHOP.rating}★
                   </p>
                 </div>

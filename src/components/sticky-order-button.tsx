@@ -7,15 +7,26 @@ import { useCart } from "./cart-provider";
 export function StickyOrderButton() {
   const { count, setOpen } = useCart();
   const [scrolled, setScrolled] = useState(false);
+  const [nearFooter, setNearFooter] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 400);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 400);
+      // Hide when within ~180px of the bottom of the page (footer zone)
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      setNearFooter(scrollBottom > docHeight - 180);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
-  const visible = scrolled || count > 0;
+  const visible = (scrolled || count > 0) && !nearFooter;
 
   return (
     <AnimatePresence>

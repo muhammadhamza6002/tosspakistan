@@ -5,7 +5,7 @@ import { SHOP } from "@/data/menu";
 
 export function Hero() {
   return (
-    <section id="top" className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-24 pb-8">
+    <section id="top" className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-24 pb-24 md:pb-32">
       {/* Corner marks */}
       <div className="absolute top-20 left-5 font-mono text-[10px] uppercase tracking-widest text-ink-soft">
         ✦ est. 2024 · F-11/1
@@ -15,7 +15,7 @@ export function Hero() {
       </div>
 
       {/* Massive wordmark */}
-      <div className="flex-1 flex flex-col items-center justify-center relative">
+      <div className="flex-1 flex flex-col items-center justify-center relative pb-20 md:pb-24">
         {/* Sticker note */}
         <motion.div
           initial={{ rotate: -8, opacity: 0, y: -20 }}
@@ -56,14 +56,6 @@ export function Hero() {
           >
             See the menu →
           </a>
-          <a
-            href={`https://wa.me/${SHOP.whatsapp}`}
-            target="_blank"
-            rel="noreferrer"
-            className="border-2 border-ink font-display text-xl px-6 py-3 hover:bg-ink hover:text-paper transition"
-          >
-            WhatsApp order
-          </a>
         </motion.div>
       </div>
 
@@ -78,7 +70,7 @@ export function Hero() {
               <span className="text-sauce">✦</span>
               <span>F-11/1 ISLAMABAD</span>
               <span className="text-sauce">✦</span>
-              <span>0326-TOSSTOS</span>
+              <span>0326-8677867</span>
               <span className="text-sauce">✦</span>
               <span>NEAPOLITAN</span>
               <span className="text-sauce">✦</span>
