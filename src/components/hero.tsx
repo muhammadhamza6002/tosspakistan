@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { SHOP } from "@/data/menu";
-import { HeroMascot } from "@/components/hero-mascot";
 
 export function Hero() {
   return (
@@ -14,9 +13,6 @@ export function Hero() {
       <div className="absolute top-20 right-5 font-mono text-[10px] uppercase tracking-widest text-ink-soft text-right">
         {SHOP.rating}★ · {SHOP.reviewCount} reviews
       </div>
-
-      {/* Mascot — only renders if /mascot.png exists in public/ */}
-      <HeroMascot />
 
       {/* Massive wordmark */}
       <div className="flex-1 flex flex-col items-center justify-center relative pb-20 md:pb-24">
