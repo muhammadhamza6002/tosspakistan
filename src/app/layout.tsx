@@ -33,10 +33,20 @@ export const metadata: Metadata = {
   title: "TOSS Pizzeria — Real Neapolitan pizza in Islamabad",
   description:
     "No fluff, no fancy. Just real pizzas done right. Authentic Neapolitan pizza in F-11/1, Islamabad. Order on WhatsApp.",
+  icons: {
+    icon: [
+      { url: "/mascot.png", type: "image/png" },
+      { url: "/mascot.png", sizes: "32x32", type: "image/png" },
+      { url: "/mascot.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: "/mascot.png",
+    apple: "/mascot.png",
+  },
   openGraph: {
     title: "TOSS Pizzeria",
     description: "No fluff, no fancy. Just real pizzas done right.",
     type: "website",
+    images: ["/mascot.png"],
   },
 };
 
