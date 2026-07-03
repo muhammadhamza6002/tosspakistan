@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 /**
- * Renders the Toss mascot from /mascot.png if the file exists in public/.
+ * Renders the Toss mascot from /mascot.jpg if the file exists in public/.
  * If it doesn't exist, renders nothing — so the hero stays clean until
  * the real profile picture is dropped in.
  */
@@ -13,7 +13,7 @@ export function HeroMascot() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/mascot.png", { method: "HEAD" })
+    fetch("/mascot.jpg", { method: "HEAD" })
       .then((r) => {
         if (!cancelled) setExists(r.ok);
       })
@@ -37,7 +37,7 @@ export function HeroMascot() {
         className="hidden md:block absolute right-3 lg:right-8 top-28 lg:top-32 w-36 lg:w-48 z-20 pointer-events-none"
       >
         <img
-          src="/mascot.png"
+          src="/mascot.jpg"
           alt=""
           aria-hidden
           className="w-full h-auto select-none"
@@ -53,7 +53,7 @@ export function HeroMascot() {
         className="md:hidden absolute bottom-28 left-3 w-24 z-20 pointer-events-none"
       >
         <img
-          src="/mascot.png"
+          src="/mascot.jpg"
           alt=""
           aria-hidden
           className="w-full h-auto select-none"

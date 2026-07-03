@@ -35,18 +35,18 @@ export const metadata: Metadata = {
     "No fluff, no fancy. Just real pizzas done right. Authentic Neapolitan pizza in F-11/1, Islamabad. Order on WhatsApp.",
   icons: {
     icon: [
-      { url: "/mascot.png", type: "image/png" },
-      { url: "/mascot.png", sizes: "32x32", type: "image/png" },
-      { url: "/mascot.png", sizes: "192x192", type: "image/png" },
+      { url: "/mascot.jpg", type: "image/jpeg" },
+      { url: "/mascot.jpg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/mascot.jpg", sizes: "192x192", type: "image/jpeg" },
     ],
-    shortcut: "/mascot.png",
-    apple: "/mascot.png",
+    shortcut: "/mascot.jpg",
+    apple: "/mascot.jpg",
   },
   openGraph: {
     title: "TOSS Pizzeria",
     description: "No fluff, no fancy. Just real pizzas done right.",
     type: "website",
-    images: ["/mascot.png"],
+    images: ["/mascot.jpg"],
   },
 };
 
