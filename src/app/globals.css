@@ -30,7 +30,9 @@ body {
 }
 
 body {
-  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body), Georgia, "Times New Roman", serif;
+  font-weight: 420;
+  font-variation-settings: "SOFT" 60, "opsz" 14;
   background-image:
     radial-gradient(rgba(10, 10, 10, 0.06) 1px, transparent 1px);
   background-size: 3px 3px;

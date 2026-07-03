@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bagel_Fat_One, Inter, Caveat, JetBrains_Mono } from "next/font/google";
+import { Bagel_Fat_One, Fraunces, Caveat, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart-provider";
 import { CartDrawer } from "@/components/cart-drawer";
@@ -13,9 +13,10 @@ const display = Bagel_Fat_One({
   subsets: ["latin"],
 });
 
-const body = Inter({
+const body = Fraunces({
   variable: "--font-body",
   subsets: ["latin"],
+  axes: ["SOFT", "opsz"],
 });
 
 const hand = Caveat({

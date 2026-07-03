@@ -54,4 +54,10 @@ export const reviews: Review[] = [
     date: "3 weeks ago",
     text: "Today was the 5th time we ate at TOSS 🍕 — with the entire family — and they just keep getting better. Margherita, Diavola and Funghi as good as it can get.",
   },
+  {
+    name: "Zarar Shah",
+    rating: 5,
+    date: "3 months ago",
+    text: "Drove specifically from Westridge to F-11 for this. Quattro Formaggi was by far the best — loaded with four types of cheese. Also tried Chicky G and Diavola. Worth every kilometre.",
+  },
 ];
