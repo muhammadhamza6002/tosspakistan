@@ -33,37 +33,74 @@ export function Story() {
           </div>
         </div>
 
-        <div className="relative min-h-[420px] md:min-h-[540px]">
-          {[
+        {(() => {
+          const items = [
             { src: "/photos/margherita.jpg", caption: "margherita, hot", rot: -6, top: "0%", left: "3%", z: 10 },
             { src: "/photos/diavola.jpg", caption: "diavola, spicy", rot: 5, top: "24%", left: "42%", z: 20 },
-          ].map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30, rotate: 0 }}
-              whileInView={{ opacity: 1, y: 0, rotate: p.rot }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="absolute w-56 md:w-72 bg-paper border-2 border-ink p-3 shadow-[6px_6px_0_0_var(--ink)]"
-              style={{ top: p.top, left: p.left, zIndex: p.z }}
-            >
-              <div className="aspect-square overflow-hidden border border-ink/20 bg-paper-warm">
-                <img
-                  src={p.src}
-                  alt={p.caption}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+          ];
+          return (
+            <>
+              {/* Mobile: simple stacked layout */}
+              <div className="md:hidden grid grid-cols-1 gap-6">
+                {items.map((p, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0, rotate: p.rot }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="mx-auto w-full max-w-[260px] bg-paper border-2 border-ink p-3 shadow-[6px_6px_0_0_var(--ink)]"
+                  >
+                    <div className="aspect-square overflow-hidden border border-ink/20 bg-paper-warm">
+                      <img
+                        src={p.src}
+                        alt={p.caption}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p className="mt-2 font-hand text-2xl leading-none">
+                      {p.caption}
+                    </p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+                      ↳ from the oven, F-11
+                    </p>
+                  </motion.div>
+                ))}
               </div>
-              <p className="mt-2 font-hand text-2xl leading-none">
-                {p.caption}
-              </p>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
-                ↳ from the oven, F-11
-              </p>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Desktop: overlapping polaroid stack */}
+              <div className="hidden md:block relative min-h-[540px]">
+                {items.map((p, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30, rotate: 0 }}
+                    whileInView={{ opacity: 1, y: 0, rotate: p.rot }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.15 }}
+                    className="absolute w-72 bg-paper border-2 border-ink p-3 shadow-[6px_6px_0_0_var(--ink)]"
+                    style={{ top: p.top, left: p.left, zIndex: p.z }}
+                  >
+                    <div className="aspect-square overflow-hidden border border-ink/20 bg-paper-warm">
+                      <img
+                        src={p.src}
+                        alt={p.caption}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p className="mt-2 font-hand text-2xl leading-none">
+                      {p.caption}
+                    </p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink-soft">
+                      ↳ from the oven, F-11
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          );
+        })()}
       </div>
     </section>
   );
